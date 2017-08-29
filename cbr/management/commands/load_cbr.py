@@ -35,8 +35,14 @@ class Command(BaseCommand):
 
             currency, created = CBRCurrency.objects.get_or_create(
                 code=code, defaults={'name': name, 'num_code': num_code, 'char_code': char_code})
+
+            try:
+                change = CBRCurrencyRate.objects.filter(currency=currency).last().rate - rate
+            except AttributeError:
+                change = 0
+
             course, created = CBRCurrencyRate.objects.get_or_create(
-                currency=currency, date_rate=date_rate, defaults={'nominal': nominal, 'rate': rate})
+                currency=currency, date_rate=date_rate, defaults={'nominal': nominal, 'rate': rate, 'change': change})
 
     def handle(self, *args, **options):
         self.load_cbr()

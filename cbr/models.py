@@ -33,3 +33,4 @@ class CBRCurrencyRate(models.Model):
     date_rate = models.DateField(_('Date of rate'), db_index=True)
     nominal = models.PositiveSmallIntegerField(_('Nominal'))
     rate = models.DecimalField(_('Rate'), max_digits=10, decimal_places=4)
+    change = models.DecimalField(_('Change'), max_digits=10, decimal_places=4)
