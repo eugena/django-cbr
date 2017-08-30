@@ -37,7 +37,7 @@ class Command(BaseCommand):
                 code=code, defaults={'name': name, 'num_code': num_code, 'char_code': char_code})
 
             try:
-                change = CBRCurrencyRate.objects.filter(currency=currency).last().rate - rate
+                change = rate - CBRCurrencyRate.objects.filter(currency=currency).last().rate
             except AttributeError:
                 change = 0
 

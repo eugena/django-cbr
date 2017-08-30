@@ -11,7 +11,7 @@ packages = find_packages()
 
 setup(
     name='django-cbr',
-    version='0.1.2',
+    version='0.1.3',
     description='Load currencies rate from CBR site to Django model',
     long_description='Simply load currencies from Central Bank of Russia site (http://www.cbr.ru/scripts/XML_daily.asp) to Django model',
     author='Slava M',
