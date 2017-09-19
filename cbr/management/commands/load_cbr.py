@@ -13,7 +13,7 @@ class Command(BaseCommand):
         url = 'http://www.cbr.ru/scripts/XML_daily.asp'
 
         resp = requests.get(url)
-        doc = minidom.parseString(resp.content.decode('cp1251'))
+        doc = minidom.parseString(resp.content)
 
         # Date parsing
         valcurs = doc.getElementsByTagName('ValCurs')[0]
