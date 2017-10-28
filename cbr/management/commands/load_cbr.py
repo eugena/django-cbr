@@ -9,7 +9,8 @@ from cbr.models import CBRCurrency, CBRCurrencyRate
 
 
 class Command(BaseCommand):
-    def load_cbr(self):
+
+    def handle(self, *args, **options):
         url = 'http://www.cbr.ru/scripts/XML_daily.asp'
 
         resp = requests.get(url)
@@ -41,8 +42,10 @@ class Command(BaseCommand):
             except AttributeError:
                 change = 0
 
-            course, created = CBRCurrencyRate.objects.get_or_create(
-                currency=currency, date_rate=date_rate, defaults={'nominal': nominal, 'rate': rate, 'change': change})
+            CBRCurrencyRate.objects.get_or_create(
+                currency=currency,
+                date_rate=date_rate,
+                defaults={'nominal': nominal, 'rate': rate, 'change': change})
 
-    def handle(self, *args, **options):
-        self.load_cbr()
+        # deleting of old currencies
+        CBRCurrencyRate.objects.exclude(date_rate=date_rate).delete()
